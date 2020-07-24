@@ -74,13 +74,10 @@ end
 lemma assoc' {W X Y Z : commutative_comonoid C} (f : W ⟶ X) (g : X ⟶ Y) (h : Y ⟶ Z) : (f ≫ g) ≫ h = f ≫ g ≫ h := 
 begin
   ext,
-  have l₁ : (f ≫ g ≫ h).f = f.f ≫ g.f ≫ h.f, from rfl,
-  rw l₁,
-  have l₂ : ((f ≫ g) ≫ h).f = (f ≫ g).f ≫ h.f, from rfl,
-  rw l₂,
-  have l₃ : (f ≫ g).f = f.f ≫ g.f, from rfl,
-  rw l₃,
-  rw category.assoc',
+  calc ((f ≫ g) ≫ h).f
+      = (f.f ≫ g.f) ≫ h.f : by refl
+  ... = f.f ≫ g.f ≫ h.f   : by rw category.assoc'
+  ... = (f ≫ g ≫ h).f     : by refl,
 end
 
 instance cc_category : category (commutative_comonoid C) := 
